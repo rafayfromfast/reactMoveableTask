@@ -1,0 +1,625 @@
+{
+  "templates": [
+    {
+      "name": "Template 1",
+      "elements": [
+        {
+          "id": "01avqCAQ9hBsm04ge_5Be",
+          "element": "crown valve",
+          "barrier": "secondary",
+          "quantity": 1
+        },
+        {
+          "id": "8ydIr3yriVcD8VG6RtaDn",
+          "element": "surface safety valve",
+          "barrier": "primary",
+          "quantity": 1
+        },
+        {
+          "id": "XEcNS-6RIc7vaUpbtAuCD",
+          "element": "safety valve landing nipple control line",
+          "barrier": "primary",
+          "quantity": 1
+        },
+        {
+          "id": "S_5sd3wFo0Gwg2jm9bpaq",
+          "element": "wing valve",
+          "barrier": "primary",
+          "quantity": 1
+        },
+        {
+          "id": "p399ObLv7CcVVyuiajC0M",
+          "element": "lower master valve",
+          "barrier": "secondary",
+          "quantity": 1
+        },
+        {
+          "id": "zx5EbS3VLdmmt9gkx4nng",
+          "element": "kill wing valve",
+          "barrier": "primary",
+          "quantity": 1
+        },
+        {
+          "id": "XrwD39fI4eSv8EKX1Bijb",
+          "element": "conductor casing",
+          "barrier": "none",
+          "quantity": 0
+        },
+        {
+          "id": "vCazYfzEpqa5q6DYIXAvu",
+          "element": "cement ( conductor casing )",
+          "barrier": "none",
+          "quantity": 0
+        },
+        {
+          "id": "sta_pxMV5ZEvy7GFKhAB4",
+          "element": "surface casing",
+          "barrier": "none",
+          "quantity": 0
+        },
+        {
+          "id": "kmfjAac5iw-opnzWRkM4K",
+          "element": "cement ( surface casing )",
+          "barrier": "none",
+          "quantity": 0
+        },
+        {
+          "id": "Q0PLRNA1IZnPat7cOxGG2",
+          "element": "intermediate casing",
+          "barrier": "primary",
+          "quantity": 1
+        },
+        {
+          "id": "A_1fAJx12bVbhe0-5wQf5",
+          "element": "cement ( intermediate casing )",
+          "barrier": "none",
+          "quantity": 0
+        },
+        {
+          "id": "R0twx1KMaGeILPiPm5-TO",
+          "element": "production casing",
+          "barrier": "none",
+          "quantity": 0
+        },
+        {
+          "id": "DGG9RJgTsjZb_5ir4fFIK",
+          "element": "cement ( production casing )",
+          "barrier": "none",
+          "quantity": 0
+        },
+        {
+          "id": "MUN-k-SlnLoFkI8wHonqz",
+          "element": "wellhead annulus valve ( conductor casing )",
+          "barrier": "secondary",
+          "quantity": 1
+        },
+        {
+          "id": "yF0y8EWKiJ8lYWGHtV3qB",
+          "element": "wellhead annulus valve ( surface casing )",
+          "barrier": "none",
+          "quantity": 0
+        },
+        {
+          "id": "0TCARa7QnGFgvncO3EAIK",
+          "element": "wellhead annulus valve ( intermediate casing )",
+          "barrier": "none",
+          "quantity": 0
+        },
+        {
+          "id": "gOpwYZiMywQ7Lx7wGJF3Q",
+          "element": "wellhead annulus valve ( production casing )",
+          "barrier": "none",
+          "quantity": 0
+        },
+        {
+          "id": "8m9NmRdQqK92XG_DYXRFH",
+          "element": "casing hanger",
+          "barrier": "none",
+          "quantity": 0
+        },
+        {
+          "id": "cvfQ18yu2D-ByQpwe1qFN",
+          "element": "tubing hanger",
+          "barrier": "none",
+          "quantity": 0
+        },
+        {
+          "id": "TKpN4nhgRlLTN8GoXuhl4",
+          "element": "production tubing",
+          "barrier": "none",
+          "quantity": 0
+        },
+        {
+          "id": "aHocx7upZM3lvI5_iB4EY",
+          "element": "downhole safety valve",
+          "barrier": "none",
+          "quantity": 0
+        },
+        {
+          "id": "QYoXi6plHQWMcVLW8Zml5",
+          "element": "downhole safety valve control line",
+          "barrier": "none",
+          "quantity": 0
+        },
+        {
+          "id": "J8W2yCHyzZBcYm_Xy71x3",
+          "element": "safety valve landing nipple",
+          "barrier": "none",
+          "quantity": 0
+        },
+        {
+          "id": "8M6lUwbjzYCaDFo9APiee",
+          "element": "gas lift mandrel",
+          "barrier": "none",
+          "quantity": 0
+        },
+        {
+          "id": "vywazLJtnL5nP1ILEvQRg",
+          "element": "sliding side door",
+          "barrier": "none",
+          "quantity": 0
+        },
+        {
+          "id": "BsVQFwhD2J7_XEAzascQ0",
+          "element": "production packer",
+          "barrier": "none",
+          "quantity": 0
+        },
+        {
+          "id": "8UV4NusJ1xfWf0Q0nizl-",
+          "element": "caprock",
+          "barrier": "none",
+          "quantity": 0
+        },
+        {
+          "id": "9nTqZ6IJDiZ_IUe2EdkqM",
+          "element": "void area",
+          "barrier": "none",
+          "quantity": 0
+        },
+        {
+          "id": "Zr8Zj0qM5fqy4HXodtQ1l",
+          "element": "tubing plug",
+          "barrier": "none",
+          "quantity": 0
+        },
+        {
+          "id": "7jIXuo2CpMngoqMwNu9Ir",
+          "element": "VR plug",
+          "barrier": "none",
+          "quantity": 0
+        },
+        {
+          "id": "vSXp6M-8ql88h1aA0wMhU",
+          "element": "BPV / TWCV",
+          "barrier": "none",
+          "quantity": 0
+        },
+        {
+          "id": "N4mPo8qDyLkxaEJwzlI1X",
+          "element": "in-situ formation",
+          "barrier": "none",
+          "quantity": 0
+        }
+      ],
+      "timestamp": 1704778218395,
+      "id": "_j8WrRXmKq_I5X1bosn0f"
+    },
+    {
+      "name": "Template 2",
+      "elements": [
+        {
+          "id": "D1empk8GvpALlGnSNepD2",
+          "element": "crown valve",
+          "barrier": "secondary",
+          "quantity": 1
+        },
+        {
+          "id": "_j2zMW-F8n6okNx1CY0k6",
+          "element": "surface safety valve",
+          "barrier": "primary",
+          "quantity": 1
+        },
+        {
+          "id": "8vChmPt5RV7PPnMvIDKTf",
+          "element": "safety valve landing nipple control line",
+          "barrier": "none",
+          "quantity": 0
+        },
+        {
+          "id": "dR3_K4z5u_VIwhsVeHOan",
+          "element": "wing valve",
+          "barrier": "none",
+          "quantity": 0
+        },
+        {
+          "id": "st0lMYEFWNNbqotfb-a0V",
+          "element": "lower master valve",
+          "barrier": "none",
+          "quantity": 0
+        },
+        {
+          "id": "QDQTqL3X_alGJ40DlBFe8",
+          "element": "kill wing valve",
+          "barrier": "none",
+          "quantity": 0
+        },
+        {
+          "id": "17GAcH2RH69nD_iQOq739",
+          "element": "conductor casing",
+          "barrier": "secondary",
+          "quantity": 1
+        },
+        {
+          "id": "6ecisisOo1i0jtxhrXWxA",
+          "element": "cement ( conductor casing )",
+          "barrier": "none",
+          "quantity": 0
+        },
+        {
+          "id": "m7xpGu-2CQsnDlKvoILFS",
+          "element": "surface casing",
+          "barrier": "none",
+          "quantity": 0
+        },
+        {
+          "id": "wFU1748MNC-9VxmP-do0Q",
+          "element": "cement ( surface casing )",
+          "barrier": "primary",
+          "quantity": 1
+        },
+        {
+          "id": "0Sc2fh_Qy5Q8PZI_fi7YJ",
+          "element": "intermediate casing",
+          "barrier": "none",
+          "quantity": 0
+        },
+        {
+          "id": "8PKT02fv-6Mr2mg1ii1Ud",
+          "element": "cement ( intermediate casing )",
+          "barrier": "none",
+          "quantity": 0
+        },
+        {
+          "id": "iPxhb4tWfFMhYbo71cloN",
+          "element": "production casing",
+          "barrier": "secondary",
+          "quantity": 1
+        },
+        {
+          "id": "L_mvYqnth7aDStpTRRvat",
+          "element": "cement ( production casing )",
+          "barrier": "secondary",
+          "quantity": 1
+        },
+        {
+          "id": "cxTnI2sMesRcU0glQdQvZ",
+          "element": "wellhead annulus valve ( conductor casing )",
+          "barrier": "primary",
+          "quantity": 1
+        },
+        {
+          "id": "PmWSQ5hvkwif_jUuOq2Ja",
+          "element": "wellhead annulus valve ( surface casing )",
+          "barrier": "none",
+          "quantity": 0
+        },
+        {
+          "id": "sLQWwck77mmxmitkrQ0j8",
+          "element": "wellhead annulus valve ( intermediate casing )",
+          "barrier": "none",
+          "quantity": 0
+        },
+        {
+          "id": "a3cL4hJebvljv9HEeiRpr",
+          "element": "wellhead annulus valve ( production casing )",
+          "barrier": "none",
+          "quantity": 0
+        },
+        {
+          "id": "-JA9rzzwDUJEf8YF-qdZy",
+          "element": "casing hanger",
+          "barrier": "none",
+          "quantity": 0
+        },
+        {
+          "id": "Yz_Zzgfy-7VmUzz1bCc9e",
+          "element": "tubing hanger",
+          "barrier": "none",
+          "quantity": 0
+        },
+        {
+          "id": "j-t05nbPq8X7FsVqcqlta",
+          "element": "production tubing",
+          "barrier": "none",
+          "quantity": 0
+        },
+        {
+          "id": "z-ubiTt1xoz4tOOO1fXv6",
+          "element": "downhole safety valve",
+          "barrier": "none",
+          "quantity": 0
+        },
+        {
+          "id": "JPbUatjxlny9yXAWlUNG5",
+          "element": "downhole safety valve control line",
+          "barrier": "none",
+          "quantity": 0
+        },
+        {
+          "id": "xS0TQErXSv7oyOgsNMy1b",
+          "element": "safety valve landing nipple",
+          "barrier": "none",
+          "quantity": 0
+        },
+        {
+          "id": "cxXOB6IsRyi5FQP54rLC_",
+          "element": "gas lift mandrel",
+          "barrier": "none",
+          "quantity": 0
+        },
+        {
+          "id": "93oOihH6S7HErNjaG4A8v",
+          "element": "sliding side door",
+          "barrier": "none",
+          "quantity": 0
+        },
+        {
+          "id": "08_CniYl-kzm1L7kgZe2g",
+          "element": "production packer",
+          "barrier": "none",
+          "quantity": 0
+        },
+        {
+          "id": "NEysphfS0b6H61a5jwVtw",
+          "element": "caprock",
+          "barrier": "none",
+          "quantity": 0
+        },
+        {
+          "id": "8Y3LgydWNs_IwLrem0FL-",
+          "element": "void area",
+          "barrier": "none",
+          "quantity": 0
+        },
+        {
+          "id": "c8zwQ5Jf8XwhrAuXZpzfW",
+          "element": "tubing plug",
+          "barrier": "none",
+          "quantity": 0
+        },
+        {
+          "id": "gSgRfe9tlQryK9f_cbx7c",
+          "element": "VR plug",
+          "barrier": "none",
+          "quantity": 0
+        },
+        {
+          "id": "Q0Ccp_GLWHcLetTNro_aY",
+          "element": "BPV / TWCV",
+          "barrier": "none",
+          "quantity": 0
+        },
+        {
+          "id": "M7dMqcvufH-7BR28aqbcO",
+          "element": "in-situ formation",
+          "barrier": "none",
+          "quantity": 0
+        }
+      ],
+      "timestamp": 1704778211315,
+      "id": "Hus2cJVWEqiEcGNAZ74lV"
+    },
+    {
+      "name": "Template 3",
+      "elements": [
+        {
+          "id": "D1empk8GvpALlGnSNepD2",
+          "element": "crown valve",
+          "barrier": "secondary",
+          "quantity": 1
+        },
+        {
+          "id": "_j2zMW-F8n6okNx1CY0k6",
+          "element": "surface safety valve",
+          "barrier": "primary",
+          "quantity": 1
+        },
+        {
+          "id": "8vChmPt5RV7PPnMvIDKTf",
+          "element": "safety valve landing nipple control line",
+          "barrier": "secondary",
+          "quantity": 1
+        },
+        {
+          "id": "dR3_K4z5u_VIwhsVeHOan",
+          "element": "wing valve",
+          "barrier": "primary",
+          "quantity": 1
+        },
+        {
+          "id": "st0lMYEFWNNbqotfb-a0V",
+          "element": "lower master valve",
+          "barrier": "primary",
+          "quantity": 1
+        },
+        {
+          "id": "QDQTqL3X_alGJ40DlBFe8",
+          "element": "kill wing valve",
+          "barrier": "none",
+          "quantity": 0
+        },
+        {
+          "id": "17GAcH2RH69nD_iQOq739",
+          "element": "conductor casing",
+          "barrier": "none",
+          "quantity": 0
+        },
+        {
+          "id": "6ecisisOo1i0jtxhrXWxA",
+          "element": "cement ( conductor casing )",
+          "barrier": "none",
+          "quantity": 0
+        },
+        {
+          "id": "m7xpGu-2CQsnDlKvoILFS",
+          "element": "surface casing",
+          "barrier": "none",
+          "quantity": 0
+        },
+        {
+          "id": "wFU1748MNC-9VxmP-do0Q",
+          "element": "cement ( surface casing )",
+          "barrier": "none",
+          "quantity": 0
+        },
+        {
+          "id": "0Sc2fh_Qy5Q8PZI_fi7YJ",
+          "element": "intermediate casing",
+          "barrier": "none",
+          "quantity": 0
+        },
+        {
+          "id": "8PKT02fv-6Mr2mg1ii1Ud",
+          "element": "cement ( intermediate casing )",
+          "barrier": "none",
+          "quantity": 0
+        },
+        {
+          "id": "iPxhb4tWfFMhYbo71cloN",
+          "element": "production casing",
+          "barrier": "none",
+          "quantity": 0
+        },
+        {
+          "id": "L_mvYqnth7aDStpTRRvat",
+          "element": "cement ( production casing )",
+          "barrier": "none",
+          "quantity": 0
+        },
+        {
+          "id": "cxTnI2sMesRcU0glQdQvZ",
+          "element": "wellhead annulus valve ( conductor casing )",
+          "barrier": "none",
+          "quantity": 0
+        },
+        {
+          "id": "PmWSQ5hvkwif_jUuOq2Ja",
+          "element": "wellhead annulus valve ( surface casing )",
+          "barrier": "none",
+          "quantity": 0
+        },
+        {
+          "id": "sLQWwck77mmxmitkrQ0j8",
+          "element": "wellhead annulus valve ( intermediate casing )",
+          "barrier": "none",
+          "quantity": 0
+        },
+        {
+          "id": "a3cL4hJebvljv9HEeiRpr",
+          "element": "wellhead annulus valve ( production casing )",
+          "barrier": "none",
+          "quantity": 0
+        },
+        {
+          "id": "-JA9rzzwDUJEf8YF-qdZy",
+          "element": "casing hanger",
+          "barrier": "none",
+          "quantity": 0
+        },
+        {
+          "id": "Yz_Zzgfy-7VmUzz1bCc9e",
+          "element": "tubing hanger",
+          "barrier": "none",
+          "quantity": 0
+        },
+        {
+          "id": "j-t05nbPq8X7FsVqcqlta",
+          "element": "production tubing",
+          "barrier": "none",
+          "quantity": 0
+        },
+        {
+          "id": "z-ubiTt1xoz4tOOO1fXv6",
+          "element": "downhole safety valve",
+          "barrier": "none",
+          "quantity": 0
+        },
+        {
+          "id": "JPbUatjxlny9yXAWlUNG5",
+          "element": "downhole safety valve control line",
+          "barrier": "none",
+          "quantity": 0
+        },
+        {
+          "id": "xS0TQErXSv7oyOgsNMy1b",
+          "element": "safety valve landing nipple",
+          "barrier": "none",
+          "quantity": 0
+        },
+        {
+          "id": "cxXOB6IsRyi5FQP54rLC_",
+          "element": "gas lift mandrel",
+          "barrier": "none",
+          "quantity": 0
+        },
+        {
+          "id": "93oOihH6S7HErNjaG4A8v",
+          "element": "sliding side door",
+          "barrier": "none",
+          "quantity": 0
+        },
+        {
+          "id": "08_CniYl-kzm1L7kgZe2g",
+          "element": "production packer",
+          "barrier": "none",
+          "quantity": 0
+        },
+        {
+          "id": "NEysphfS0b6H61a5jwVtw",
+          "element": "caprock",
+          "barrier": "none",
+          "quantity": 0
+        },
+        {
+          "id": "8Y3LgydWNs_IwLrem0FL-",
+          "element": "void area",
+          "barrier": "none",
+          "quantity": 0
+        },
+        {
+          "id": "c8zwQ5Jf8XwhrAuXZpzfW",
+          "element": "tubing plug",
+          "barrier": "none",
+          "quantity": 0
+        },
+        {
+          "id": "gSgRfe9tlQryK9f_cbx7c",
+          "element": "VR plug",
+          "barrier": "none",
+          "quantity": 0
+        },
+        {
+          "id": "Q0Ccp_GLWHcLetTNro_aY",
+          "element": "BPV / TWCV",
+          "barrier": "none",
+          "quantity": 0
+        },
+        {
+          "id": "M7dMqcvufH-7BR28aqbcO",
+          "element": "in-situ formation",
+          "barrier": "none",
+          "quantity": 0
+        }
+      ],
+      "timestamp": 1704723712479,
+      "id": "gGe5lOK7HLYcrmLKQpm1T"
+    }
+  ],
+  "strings": []
+}
+    
+    
+
+  
+   
