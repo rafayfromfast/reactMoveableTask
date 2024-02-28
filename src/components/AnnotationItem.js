@@ -3,15 +3,16 @@ import { BarrierContext } from '../context/BarrierContext';
 import Rectangle from './annotations/Rectangle';
 import Text from './annotations/Text';
 import { useClickAway } from '@uidotdev/usehooks';
+import Circle from './annotations/Circle';
+import Line from './annotations/Line';
+import Arrow from './annotations/Arrow';
 
 export default function AnnotationItem({ item }) {
-  const { setCurrentAnno } = useContext(BarrierContext);
-
-  // const targetRef = useClickAway(() => {
-  //   setCurrentAnno(null);
-  // });
+  console.log('item :', item);
+  const { setCurrentAnno, currentAnno } = useContext(BarrierContext);
 
   const renderAnno = (type) => {
+    console.log('type :', type);
     switch (type) {
       case 'text':
         return <Text item={item} />;
@@ -19,6 +20,12 @@ export default function AnnotationItem({ item }) {
       case 'rectangle':
         return <Rectangle item={item} />;
         break;
+      case 'ellipse':
+        return <Circle item={item} />;
+      case 'line':
+        return <Line item={item} />;
+      case 'arrow':
+        return <Arrow item={item} />;
       default:
         return null;
     }
@@ -67,6 +74,18 @@ export default function AnnotationItem({ item }) {
   // ref={targetRef}
 
   return (
-    <div onClick={() => setCurrentAnno(item)}>{renderAnno(item.type)}</div>
+    <div
+      onClick={(e) => {
+        e.stopPropagation(); // this will stop the click event occuring in <Diagram> onclick,
+        //and this will only trigger the diagram's onClick when the click is not on any annotation,
+        // so we can take care of that as an outside click of any annotations
+        if (currentAnno?.id === item.id) {
+          return;
+        }
+        setCurrentAnno(item);
+      }}
+    >
+      {renderAnno(item.type)}
+    </div>
   );
 }

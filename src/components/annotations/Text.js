@@ -2,12 +2,29 @@ import { useContext, useEffect, useRef } from 'react';
 import { BarrierContext } from '../../context/BarrierContext';
 import TextareaAutosize from 'react-textarea-autosize';
 import Moveable from 'react-moveable';
+import {
+  handleDragEnd,
+  handleResizeEnd,
+  handleRotateEnd,
+  valsToTransformString,
+} from './utils';
 
 export default function Text({ item }) {
   const { currentAnno, setCurrentAnno } = useContext(BarrierContext);
+  console.log('currentAnno :', currentAnno);
 
   const targetRef = useRef(null);
   const moveableRef = useRef(null);
+  console.log('item :', item);
+
+  const textareaRef = useRef(null); // Create a ref for the textarea
+
+  useEffect(() => {
+    // Focus the textarea when the component mounts
+    if (textareaRef.current) {
+      textareaRef.current.focus();
+    }
+  }, []); // Run this effect only once, when the component mounts
 
   return (
     <>
@@ -16,23 +33,45 @@ export default function Text({ item }) {
           <div
             style={{
               position: 'absolute',
-              left: item?.position?.x,
-              top: item?.position?.y,
+              left: 0,
+              top: 0,
               width: item?.size?.width,
               height: item?.size?.height,
-              transform: `rotate(${item?.rotation}deg)`,
+              transform: valsToTransformString(item),
               fontSize: item?.fontSize,
               fontWeight: item?.fontWeight,
               fontFamily: item?.fontFamily,
             }}
             ref={targetRef}
           >
+            {/* <textarea
+              className="h-full w-full"
+              onClick={(e) => {
+                e.stopPropagation();
+              }}
+            /> */}
             <TextareaAutosize
+              ref={textareaRef} // Assign the ref to the textarea
               placeholder='Text'
-              className='resize-none overflow-y-auto scrollbar-hide'
+              autoFocus={true}
+              onClick={() => {
+                textareaRef.current.focus();
+              }}
+              value={currentAnno.content}
+              // autoFocus={true}
+              className='resize-none overflow-y-auto scrollbar-hide min-h-[100%] w-[100%] max-h-[100%]'
+              onChange={(e) => {
+                setCurrentAnno({ ...currentAnno, content: e.target.value });
+              }}
+              style={{
+                background: item.background.color || 'transparent',
+                color: item.border.color || 'black',
+              }}
             />
           </div>
           <Moveable
+            transformOrigin={valsToTransformString(item)}
+            transform={valsToTransformString(item)}
             className='bg-[#ddd]'
             ref={moveableRef}
             target={targetRef}
@@ -73,16 +112,22 @@ export default function Text({ item }) {
             throttleRotate={0}
             rotationPosition={'top'}
             snapRotationDegrees={[0, 45, 90, 135, 180, 225, 270, 315]}
-            onDrag={(e) => {
-              e.target.style.transform = e.transform;
+            onRender={(e) => {
+              console.log('e.cssText :', e.cssText);
+              e.target.style.cssText += e.cssText;
             }}
-            onResize={(e) => {
-              e.target.style.width = `${e.width}px`;
-              e.target.style.height = `${e.height}px`;
-              e.target.style.transform = e.drag.transform;
+            onDragEnd={(e) => {
+              const data = handleDragEnd(e);
+              console.log('data :', data);
+              data && setCurrentAnno({ ...currentAnno, position: data });
             }}
-            onRotate={(e) => {
-              e.target.style.transform = e.drag.transform;
+            onResizeEnd={(e) => {
+              const size = handleResizeEnd(e);
+              setCurrentAnno({ ...currentAnno, size });
+            }}
+            onRotateEnd={(e) => {
+              const rotation = handleRotateEnd(e);
+              setCurrentAnno({ ...currentAnno, rotation });
             }}
           />
         </>
@@ -90,20 +135,25 @@ export default function Text({ item }) {
         <div
           style={{
             position: 'absolute',
-            left: item?.position?.x,
-            top: item?.position?.y,
+            left: 0,
+            top: 0,
             width: item?.size?.width,
             height: item?.size?.height,
-            transform: `rotate(${item?.rotation}deg)`,
+            transform: valsToTransformString(item),
             fontSize: item?.fontSize,
             fontWeight: item?.fontWeight,
             fontFamily: item?.fontFamily,
+            overflow: 'hidden',
           }}
         >
           <TextareaAutosize
             className='resize-none overflow-y-auto scrollbar-hide text-wrap'
             placeholder='Text'
-            value={currentAnno?.content}
+            value={item?.content}
+            style={{
+              background: item.background?.color || 'transparent',
+              color: item.border?.color || 'black',
+            }}
           />
         </div>
       )}

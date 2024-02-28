@@ -4,10 +4,11 @@ import React, {
   useState,
   useEffect,
   useRef,
+  useMemo,
 } from 'react';
 import Popup from 'reactjs-popup';
 import { Flex, IconButton, Input, Button } from '@chakra-ui/react';
-import { SmallCloseIcon } from '@chakra-ui/icons';
+import { DeleteIcon, SmallCloseIcon } from '@chakra-ui/icons';
 import { BarrierContext } from '../context/BarrierContext';
 import { nanoid } from 'nanoid';
 import { useDrop, useDrag } from 'react-dnd';
@@ -17,6 +18,7 @@ import { useForm, useFieldArray } from 'react-hook-form';
 import _ from 'lodash';
 import { useMouse } from '@uidotdev/usehooks';
 import Line from './annotations/Line';
+import { getRelevantAnnotation, getTextArea } from '../utils/newAnnotations';
 
 const defaultElements = [
   {
@@ -229,10 +231,15 @@ const Diagram = forwardRef((props, printRef) => {
   const {
     currentData,
     setCurrentData,
-    handleCreateTemplate,
     setShowDiagram,
     isCurrent,
     setIsCurrent,
+    selectedOption,
+    setSelectedOption,
+    annotations,
+    setAnnotations,
+    currentAnno,
+    setCurrentAnno,
   } = useContext(BarrierContext);
 
   // const [mouseCoords, setMouseCoords] = useState({ x: 0, y: 0 });
@@ -246,12 +253,32 @@ const Diagram = forwardRef((props, printRef) => {
   //   });
   // };
 
+  const handleClick = (event) => {
+    event.preventDefault();
+    if (!selectedOption) {
+      setCurrentAnno(null);
+      return;
+    }
+    // Get the mouse coordinates relative to the div
+    const x = event.nativeEvent.offsetX;
+    console.log('x :', x);
+    const y = event.nativeEvent.offsetY;
+    console.log('y :', y);
+
+    if (selectedOption) {
+      const newAnnotation = getRelevantAnnotation(selectedOption, x, y);
+      setAnnotations((prev) => [...prev, newAnnotation]);
+      setSelectedOption(null);
+    }
+  };
+
   const { register, handleSubmit, control, watch, setValue } = useForm({
     defaultValues: {
       name: isCurrent ? currentData?.name : '',
       elements: isCurrent ? currentData?.elements : defaultElements,
     },
   });
+  console.log('isCurrent :', isCurrent);
 
   const popupRef = useRef();
   const closePopup = () => popupRef.current.close();
@@ -298,23 +325,49 @@ const Diagram = forwardRef((props, printRef) => {
     }
   }, [isCurrent, currentData]);
 
+  const handleSave = async (formData, others) => {
+    console.log('others :', others);
+    console.log('formData :', formData);
+    console.log('currentData :', currentData);
+    if (formData?.name) {
+      const response = await fetch(
+        'http://localhost:4000/diagrams' +
+          (currentData?.name ? `/${currentData.id}` : ''),
+        {
+          method: currentData?.name ? 'PUT' : 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            annotations,
+            name: formData.name,
+            id: currentData?.id || undefined,
+          }),
+        }
+      );
+    }
+  };
   return (
     <form
       id='diagramForm'
-      onSubmit={handleSubmit(handleCreateTemplate)}
+      onSubmit={handleSubmit(handleSave)}
       autoComplete='off'
     >
       <Flex w='640px' flexDir='column'>
         <Flex w='640px' justify='space-between' overflowY zIndex={40} mb={3}>
-          <Button
-            variant='solid'
-            colorScheme='blue'
-            size='sm'
-            type='submit'
-            form='diagramForm'
-          >
-            Save Diagram
-          </Button>
+          <>
+            <Button
+              variant='solid'
+              colorScheme='blue'
+              size='sm'
+              type='submit'
+              form='diagramForm'
+              onClick={handleSave}
+            >
+              Save Diagram
+            </Button>
+          </>
+
           <IconButton
             variant='outline'
             size='xs'
@@ -328,10 +381,10 @@ const Diagram = forwardRef((props, printRef) => {
           />
         </Flex>
       </Flex>
-      <div ref={printRef} id='diagram'>
+      <div id='diagram'>
         <div
           // ref={drop}
-          className='flex flex-col w-full h-[1040px] border overflow-y-auto scrollbar-hide'
+          className='flex flex-col w-full h-[500px] border overflow-y-auto scrollbar-hide'
         >
           <div className='p-2 border-b'>
             <Input
@@ -352,14 +405,17 @@ const Diagram = forwardRef((props, printRef) => {
           >
             <div
               // ref={containerRef}
-              className={`relative border m-3 p-0 col-span-6 snapContainer  
-                cursor-crosshair' : 'cursor-pointer'
-              }`}
+              className={`relative border m-3 p-0 col-span-12 snapContainer  
+      cursor-crosshair' : 'cursor-pointer'
+    }`}
               // onMouseMove={handleMouseMove}
+              onClick={handleClick}
+              ref={printRef}
             >
               <AnnotationList />
             </div>
           </div>
+          {/* {Annotations} */}
         </div>
       </div>
     </form>

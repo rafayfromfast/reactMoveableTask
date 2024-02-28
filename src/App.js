@@ -12,6 +12,10 @@ import {
   Stack,
   Image,
 } from '@chakra-ui/react';
+import {
+  exportComponentAsJPEG,
+  exportComponentAsPNG,
+} from 'react-component-export-image';
 
 import { AddIcon, SearchIcon, ChevronDownIcon } from '@chakra-ui/icons';
 import { BsPrinterFill } from 'react-icons/bs';
@@ -22,7 +26,7 @@ import DiagramList from './components/DiagramList';
 import { RiEdit2Fill } from 'react-icons/ri';
 import { nanoid } from 'nanoid';
 import _ from 'lodash';
-import { PiFilePngFill } from 'react-icons/pi';
+import { PiFileJpgFill, PiFilePngFill } from 'react-icons/pi';
 import { PiTextTFill } from 'react-icons/pi';
 import { MdEdit } from 'react-icons/md';
 import DesignPanel from './components/DesignPanel';
@@ -39,32 +43,38 @@ function App() {
     currentData,
     setCurrentData,
     setIsNewAnno,
+    selectedOption,
+    setSelectedOption,
   } = useContext(BarrierContext);
 
   const annotationMenu = [
     {
       id: nanoid(),
-      type: 'Line',
+      type: 'line',
+      label: 'Line',
       shortcut: 'l',
       imageURL: './icons/solid-line.svg',
     },
 
     {
       id: nanoid(),
-      type: 'Arrow',
+      type: 'arrow',
+      label: 'Arrow',
       shortcut: 'a',
       imageURL: './icons/arrow.svg',
     },
 
     {
       id: nanoid(),
-      type: 'Rectangle',
+      type: 'rectangle',
+      label: 'Rectangle',
       shortcut: 'r',
       imageURL: './icons/rectangle.svg',
     },
     {
       id: nanoid(),
-      type: 'Ellipse',
+      type: 'ellipse',
+      label: 'Ellipse',
       shortcut: 'o',
       imageURL: './icons/ellipse.svg',
     },
@@ -106,16 +116,27 @@ function App() {
                 />
 
                 <IconButton
-                  variant='outline'
+                  variant={selectedOption === 'text' ? 'solid' : 'outline'}
                   colorScheme='blue'
                   size='sm'
                   icon={<PiTextTFill />}
+                  onClick={() => {
+                    setSelectedOption('text');
+                    // setCurrentData({ id: nanoid(), ...currentData });
+                    setShowDiagram(true);
+                  }}
                 />
 
                 <Popup
                   trigger={
                     <IconButton
-                      variant='outline'
+                      variant={
+                        ['line', 'arrow', 'ellipse', 'rectangle'].includes(
+                          selectedOption
+                        )
+                          ? 'solid'
+                          : 'outline'
+                      }
                       colorScheme='blue'
                       size='sm'
                       icon={<MdEdit />}
@@ -127,12 +148,17 @@ function App() {
                       <div
                         key={item.id}
                         className='hover:bg-[#EDF2F7] w-full flex items-center justify-start text-xs px-3 py-1 '
+                        onClick={() => {
+                          setSelectedOption(item.type);
+                          // setCurrentData({ id: nanoid(), ...currentData });
+                          setShowDiagram(true);
+                        }}
                       >
                         <div>
                           <Image src={item.imageURL} boxSize={4} mr={3} />
                         </div>
                         <div>
-                          <p>{item.type}</p>
+                          <p>{item.label}</p>
                         </div>
                       </div>
                     ))}
@@ -144,6 +170,18 @@ function App() {
                   colorScheme='blue'
                   size='sm'
                   icon={<PiFilePngFill />}
+                  onClick={() => {
+                    exportComponentAsPNG(printRef);
+                  }}
+                />
+                <IconButton
+                  variant='outline'
+                  colorScheme='blue'
+                  size='sm'
+                  icon={<PiFileJpgFill />}
+                  onClick={() => {
+                    exportComponentAsJPEG(printRef);
+                  }}
                 />
 
                 <ReactToPrint
@@ -180,11 +218,10 @@ function App() {
           <SelectStringDropdown />
 
           <div className='overflow-y-auto w-full scrollbar-hide mt-3 mb-3'>
-            <DiagramItem />
+            <DiagramList />
           </div>
         </Flex>
         {/* left sidebar end */}
-
         <Flex w='640px' h='100vh' overflowY>
           <div className='overflow-y-auto w-full scrollbar-hide mt-[108px] mb-3'>
             {showDiagram ? <Diagram ref={printRef} /> : null}

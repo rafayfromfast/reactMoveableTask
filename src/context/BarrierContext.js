@@ -1,6 +1,7 @@
 import { createContext, useState, useEffect, useMemo } from 'react';
 import { useToast } from '@chakra-ui/react';
 import { nanoid } from 'nanoid';
+import { fetchDiagrams } from '../api/controllers';
 
 export const BarrierContext = createContext();
 
@@ -14,6 +15,7 @@ export const BarrierProvider = ({ children }) => {
   const toast = useToast();
   const [templates, setTemplates] = useState([]);
   const [isCurrent, setIsCurrent] = useState(false);
+  const [diagrams, setDiagrams] = useState([]);
   const [showDiagram, setShowDiagram] = useState(false);
   const [currentData, setCurrentData] = useState(null);
   const [selectedString, setSelectedString] = useState('');
@@ -68,36 +70,39 @@ export const BarrierProvider = ({ children }) => {
     //   content:
     //     'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry',
     // },
-    {
-      id: 2,
-      type: 'rectangle',
-      position: {
-        x: 10,
-        y: 10,
-      },
-      rotation: 0,
-      size: {
-        width: 60,
-        height: 60,
-      },
-      background: {
-        color: '#ddd',
-      },
-      border: {
-        color: '#000000',
-        width: 1,
-        radius: 5,
-        topLeftRadius: 0,
-        topRightRadius: 0,
-        bottomRightRadius: 0,
-        bottomLeftRadius: 0,
-      },
-      isLocked: true,
-    },
+    // {
+    //   id: 2,
+    //   type: "rectangle",
+    //   position: {
+    //     x: 10,
+    //     y: 10,
+    //   },
+    //   rotation: 0,
+    //   size: {
+    //     width: 60,
+    //     height: 60,
+    //   },
+    //   background: {
+    //     color: "#ddd",
+    //   },
+    //   border: {
+    //     color: "#000000",
+    //     width: 1,
+    //     radius: 5,
+    //     topLeftRadius: 0,
+    //     topRightRadius: 0,
+    //     bottomRightRadius: 0,
+    //     bottomLeftRadius: 0,
+    //   },
+    //   isLocked: true,
+    // },
   ]);
   const [currentAnno, setCurrentAnno] = useState(null);
+  const [selectedOption, setSelectedOption] = useState(null);
 
   useEffect(() => {
+    console.log('currentAnno effect:', currentAnno);
+    console.log('annotations :', annotations);
     setAnnotations(
       annotations?.map((item) =>
         item.id === currentAnno?.id
@@ -107,7 +112,11 @@ export const BarrierProvider = ({ children }) => {
           : item
       )
     );
-  }, [currentAnno]);
+  }, [JSON.stringify(currentAnno)]);
+
+  // const deleteAnnotation = (id) => {
+  //   setAnnotations(prev )
+  // }
 
   const filteredStrings = useMemo(() => {
     if (!searchString) return strings;
@@ -116,6 +125,41 @@ export const BarrierProvider = ({ children }) => {
       return item.name.toLowerCase().includes(searchString.toLowerCase());
     });
   }, [strings, searchString]);
+
+  const handleDeleteKey = () => {
+    if (currentAnno) {
+      setAnnotations((prev) =>
+        prev.filter((anno) => anno.id != currentAnno.id)
+      );
+      setCurrentAnno(null);
+    }
+  };
+
+  useEffect(() => {
+    const handleKeyDown = (event) => {
+      if (event.key === 'Delete' || event.keyCode === 46) {
+        handleDeleteKey();
+      }
+    };
+    document.body.addEventListener('keydown', handleKeyDown);
+    return () => {
+      document.body.removeEventListener('keydown', handleKeyDown);
+    };
+  }, [currentAnno]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const data = await fetchDiagrams();
+      setDiagrams(data);
+    };
+
+    fetchData();
+  }, []);
+
+  useEffect(() => {
+    currentData?.annotations?.length &&
+      setAnnotations(currentData?.annotations);
+  }, [currentData]);
 
   return (
     <BarrierContext.Provider
@@ -142,6 +186,10 @@ export const BarrierProvider = ({ children }) => {
         filteredStrings,
         searchString,
         setSearchString,
+        selectedOption,
+        setSelectedOption,
+        diagrams,
+        setDiagrams,
       }}
     >
       {children}

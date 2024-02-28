@@ -11,6 +11,7 @@ import {
   Button,
   Grid,
   GridItem,
+  CloseButton,
 } from '@chakra-ui/react';
 import { RxAngle } from 'react-icons/rx';
 import Popup from 'reactjs-popup';
@@ -38,7 +39,7 @@ const leftArrows = [
   },
   {
     id: 2,
-    name: 'arrow-left-triangle',
+    name: 'leftArrowFilled',
     svg: (
       <svg
         width='56'
@@ -56,7 +57,7 @@ const leftArrows = [
   },
   {
     id: 3,
-    name: 'arrow-left-line',
+    name: 'leftArrowLine',
     svg: (
       <svg
         width='56'
@@ -74,7 +75,7 @@ const leftArrows = [
   },
   {
     id: 4,
-    name: 'arrow-left-line',
+    name: 'leftArrowCircle',
     svg: (
       <svg
         width='56'
@@ -109,7 +110,7 @@ const rightArrows = [
   },
   {
     id: 2,
-    name: 'arrow-right-triangle',
+    name: 'rightArrowFilled',
     svg: (
       <svg
         width='56'
@@ -127,7 +128,7 @@ const rightArrows = [
   },
   {
     id: 3,
-    name: 'arrow-right-line',
+    name: 'rightArrowLine',
     svg: (
       <svg
         width='56'
@@ -145,7 +146,7 @@ const rightArrows = [
   },
   {
     id: 4,
-    name: 'arrow-right-circle',
+    name: 'rightArrowCircle',
     svg: (
       <svg
         width='56'
@@ -485,7 +486,7 @@ export default function DesignPanel() {
                                 ...currentAnno,
                                 border: {
                                   ...currentAnno.border,
-                                  bottomRadius: +e.target.value,
+                                  bottomRightRadius: +e.target.value,
                                 },
                               });
                             }
@@ -668,6 +669,19 @@ export default function DesignPanel() {
                   },
                 })}
               />
+              <CloseButton
+                onClick={() => {
+                  if (currentAnno) {
+                    setCurrentAnno({
+                      ...currentAnno,
+                      background: {
+                        ...currentAnno.background,
+                        color: 'transparent',
+                      },
+                    });
+                  }
+                }}
+              />
             </InputGroup>
           </GridItem>
           <GridItem colSpan={2}>
@@ -772,9 +786,114 @@ export default function DesignPanel() {
                   }
                   position='bottom center'
                 >
-                  <div className='w-[140px] bg-slate-50'>pat</div>
+                  <div
+                    className='w-[140px] bg-slate-50'
+                    onClick={() => {
+                      setCurrentAnno({
+                        ...currentAnno,
+                        pattern: 'crossedLines',
+                        patternAngle: 45,
+                        patternSpacing: 8,
+                        patternColor: 'black',
+                      });
+                    }}
+                  >
+                    Crossed lines
+                  </div>
                 </Popup>
               </InputLeftAddon>
+            </InputGroup>
+          </GridItem>
+          <GridItem>
+            <CloseButton
+              onClick={() => {
+                setCurrentAnno({ ...currentAnno, pattern: null });
+              }}
+            />
+          </GridItem>
+          <GridItem>
+            <InputGroup size='xs' w='100px' variant='ghost'>
+              <InputLeftAddon bgColor={'transparent'} w='28px'>
+                <RxAngle className='w-[12px]' />
+              </InputLeftAddon>
+              <Input
+                value={currentAnno?.patternAngle}
+                {...register('patternAngle', {
+                  onChange: (e) => {
+                    if (currentAnno) {
+                      setCurrentAnno({
+                        ...currentAnno,
+                        patternAngle: +e.target.value,
+                      });
+                    }
+                  },
+                })}
+              />
+            </InputGroup>
+          </GridItem>
+          <GridItem>
+            <InputGroup size='xs' w='full' variant='ghost'>
+              <InputLeftAddon bgColor={'gray.100'}>
+                <Popup
+                  trigger={
+                    <div
+                      style={{
+                        width: '16px',
+                        height: '16px',
+                        backgroundColor: currentAnno
+                          ? currentAnno?.patternColor
+                          : '#000000',
+                      }}
+                    />
+                  }
+                  position='bottom center'
+                >
+                  <HexColorPicker
+                    color={currentAnno ? currentAnno?.patternColor : '#000000'}
+                    onChange={(e) => {
+                      if (currentAnno) {
+                        setCurrentAnno({
+                          ...currentAnno,
+                          patternColor: e,
+                        });
+                      }
+                    }}
+                  />
+                </Popup>
+              </InputLeftAddon>
+              <Input
+                value={currentAnno?.patternColor}
+                {...register('patternColor', {
+                  onChange: (e) => {
+                    if (currentAnno) {
+                      setCurrentAnno({
+                        ...currentAnno,
+                        patternColor: e.target.value,
+                      });
+                    }
+                  },
+                })}
+              />
+            </InputGroup>
+          </GridItem>
+          <GridItem>
+            <InputGroup size='xs' w='100px' variant='ghost'>
+              <InputLeftAddon bgColor={'transparent'} w='60px'>
+                Spacing
+              </InputLeftAddon>
+              <Input
+                value={currentAnno?.patternSpacing}
+                {...register('patternSpacing', {
+                  onChange: (e) => {
+                    if (currentAnno) {
+                      setCurrentAnno({
+                        ...currentAnno,
+                        patternSpacing: +e.target.value,
+                      });
+                    }
+                  },
+                })}
+              />
             </InputGroup>
           </GridItem>
         </Grid>
@@ -786,35 +905,6 @@ export default function DesignPanel() {
           gap={0}
           alignItems='center'
         >
-          <GridItem colSpan={2}>
-            <Text fontSize='12px' px={2} fontWeight='semibold'>
-              Line
-            </Text>
-          </GridItem>
-          <GridItem>
-            <Select
-              size='xs'
-              variant='ghost'
-              defaultValue='solid'
-              {...register('lineStyle')}
-            >
-              <option value='solid'>Solid</option>
-              <option value='dashed'>Dashed</option>
-            </Select>
-          </GridItem>
-          <GridItem>
-            <Select
-              size='xs'
-              variant='ghost'
-              defaultValue='12'
-              {...register('lineWidth')}
-            >
-              <option value='8'>1</option>
-              <option value='10'>2</option>
-              <option value='12'>3</option>
-              <option value='14'>4</option>
-            </Select>
-          </GridItem>
           <GridItem colSpan={2}>
             <Text fontSize='12px' px={2} fontWeight='semibold'>
               Arrow
@@ -845,6 +935,14 @@ export default function DesignPanel() {
                   <div
                     key={item.id}
                     className='h-4 hover:bg-[#EDF2F7] flex items-center justify-center px-3 py-1'
+                    onClick={() => {
+                      if (currentAnno?.type === 'arrow') {
+                        setCurrentAnno({
+                          ...currentAnno,
+                          leftArrowStyle: item.name,
+                        });
+                      }
+                    }}
                   >
                     {item.svg}
                   </div>
@@ -877,12 +975,69 @@ export default function DesignPanel() {
                   <div
                     key={item.id}
                     className=' h-4 hover:bg-[#EDF2F7] flex items-center justify-center'
+                    onClick={() => {
+                      if (currentAnno?.type === 'arrow') {
+                        setCurrentAnno({
+                          ...currentAnno,
+                          rightArrowStyle: item.name,
+                        });
+                      }
+                    }}
                   >
                     {item.svg}
                   </div>
                 ))}
               </div>
             </Popup>
+          </GridItem>
+          <GridItem colSpan={2}>
+            <Text fontSize='12px' px={2} fontWeight='semibold'>
+              Line
+            </Text>
+          </GridItem>
+          <GridItem>
+            <Select
+              size='xs'
+              variant='ghost'
+              defaultValue='solid'
+              value={currentAnno?.lineStyle || 'solid'}
+              {...register('lineStyle', {
+                onChange: (e) => {
+                  if (currentAnno) {
+                    setCurrentAnno({
+                      ...currentAnno,
+                      lineStyle: e.target.value,
+                    });
+                  }
+                },
+              })}
+            >
+              <option value='solid'>Solid</option>
+              <option value='dashed'>Dashed</option>
+            </Select>
+          </GridItem>
+          <GridItem>
+            <Select
+              size='xs'
+              variant='ghost'
+              defaultValue='12'
+              value={currentAnno?.lineWidth || 1}
+              {...register('lineWidth', {
+                onChange: (e) => {
+                  if (currentAnno) {
+                    setCurrentAnno({
+                      ...currentAnno,
+                      lineWidth: +e.target.value,
+                    });
+                  }
+                },
+              })}
+            >
+              <option value='1'>1</option>
+              <option value='2'>2</option>
+              <option value='3'>3</option>
+              <option value='4'>4</option>
+            </Select>
           </GridItem>
         </Grid>
       </Flex>

@@ -8,48 +8,60 @@ import {
   handleRotateEnd,
   valsToTransformString,
 } from './utils';
+import { transform } from 'lodash';
 
-export default function Rectangle({ item }) {
+export default function Circle({ item }) {
+  console.log('item :', item);
   const { currentAnno, setCurrentAnno } = useContext(BarrierContext);
+  console.log('currentAnno :', currentAnno);
   const targetRef = useRef(null);
   const moveableRef = useRef(null);
-  console.log('item :', item);
+  console.log('valsToTransformString circle :', valsToTransformString(item));
 
-  console.log('current anno', currentAnno);
+  if (targetRef.current) {
+    console.log('targetRef.current.style :', targetRef.current.style);
+    if (targetRef.current.style) {
+      targetRef.current.transform = valsToTransformString(item);
+    }
+  }
 
   return (
     <>
       {item.id === currentAnno?.id ? (
         <>
           <div
+            // className={`${valsToTransformString(currentAnno)}`}
             style={{
               position: 'absolute',
               left: 0,
               top: 0,
               width: item?.size?.width,
               height: item?.size?.height,
-              transform: valsToTransformString(item),
+              // transformOrigin: valsToTransformString(item),
+              // transform: `translate(0px,0px)`,
+              transform: valsToTransformString(currentAnno),
+              // transformStyle: valsToTransformString(item),
               backgroundColor: item?.background?.color,
               borderWidth: `${item?.border?.width}px`,
               borderColor: `${item?.border?.color}`,
               borderTopLeftRadius: `${
-                item?.border?.radius > 0
-                  ? `${item?.border?.radius}px`
+                item?.border?.radius
+                  ? `${item?.border?.radius}`
                   : `${item?.border?.topLeftRadius}px`
               }`,
               borderTopRightRadius: `${
-                item?.border?.radius > 0
-                  ? `${item?.border?.radius}px`
+                item?.border?.radius
+                  ? `${item?.border?.radius}`
                   : `${item?.border?.topRightRadius}px`
               }`,
               borderBottomRightRadius: `${
-                item?.border?.radius > 0
-                  ? `${item?.border?.radius}px`
+                item?.border?.radius
+                  ? `${item?.border?.radius}`
                   : `${item?.border?.bottomRightRadius}px`
               }`,
               borderBottomLeftRadius: `${
-                item?.border?.radius > 0
-                  ? `${item?.border?.radius}px`
+                item?.border?.radius
+                  ? `${item?.border?.radius}`
                   : `${item?.border?.bottomLeftRadius}px`
               }`,
               overflow: 'hidden',
@@ -89,29 +101,12 @@ export default function Rectangle({ item }) {
             )}
           </div>
           <Moveable
-            transform={valsToTransformString(item)}
+            // transformOrigin={valsToTransformString(item)}
+            transform={valsToTransformString(currentAnno)}
             ref={moveableRef}
             target={targetRef}
             draggable={true}
-            resizable={true}
-            rotatable={true}
-            onRender={(e) => {
-              console.log('e.cssText :', e.cssText);
-              e.target.style.cssText += e.cssText;
-            }}
-            onDragEnd={(e) => {
-              const position = handleDragEnd(e);
-              position && setCurrentAnno({ ...currentAnno, position });
-            }}
-            onResizeEnd={(e) => {
-              const size = handleResizeEnd(e);
-              console.log('size :', size);
-              setCurrentAnno({ ...currentAnno, size });
-            }}
-            onRotateEnd={(e) => {
-              const rotation = handleRotateEnd(e);
-              setCurrentAnno({ ...currentAnno, rotation });
-            }}
+            roundable={true}
             throttleDrag={1}
             edgeDraggable={false}
             startDragRotate={0}
@@ -141,44 +136,90 @@ export default function Rectangle({ item }) {
               },
             ]}
             bounds={{ left: 0, top: 0, right: 0, bottom: 0, position: 'css' }}
+            resizable={true}
+            rotatable={true}
             throttleResize={1}
             renderDirections={['nw', 'n', 'ne', 'w', 'e', 'sw', 's', 'se']}
             throttleRotate={0}
             rotationPosition={'top'}
             snapRotationDegrees={[0, 45, 90, 135, 180, 225, 270, 315]}
+            // onDrag={(e) => {
+            //   e.target.style.transform = e.transform;
+            // }}
+            // onResize={(e) => {
+            //   e.target.style.width = `${e.width}px`;
+            //   e.target.style.height = `${e.height}px`;
+            //   e.target.style.transform = e.drag.transform;
+            // }}
+            // onRotate={(e) => {
+            //   e.target.style.transform = e.drag.transform;
+            // }}
+            onRender={(e) => {
+              console.log('e.cssText :', e.cssText);
+              e.target.style.cssText += e.cssText;
+            }}
+            // onRound={(e) => {
+            //   console.log('ROUND', e.borderRadius);
+            //   e.target.style.borderRadius = e.borderRadius;
+            // }}
+            onRoundEnd={(e) => {
+              setCurrentAnno({
+                ...currentAnno,
+                border: {
+                  ...currentAnno?.border,
+                  radius: e.target.style.borderRadius,
+                },
+              });
+              console.log('e.borderRadius :', e.target.style.borderRadius);
+            }}
+            onDragEnd={(e) => {
+              const position = handleDragEnd(e);
+              console.log('position :', position);
+              position && setCurrentAnno({ ...currentAnno, position });
+            }}
+            onResizeEnd={(e) => {
+              const size = handleResizeEnd(e);
+              console.log('size :', size);
+              setCurrentAnno({ ...currentAnno, size });
+            }}
+            onRotateEnd={(e) => {
+              const rotation = handleRotateEnd(e);
+              setCurrentAnno({ ...currentAnno, rotation });
+            }}
           />
         </>
       ) : (
         <div
           style={{
             position: 'absolute',
-            left: 0,
             top: 0,
-            transform: valsToTransformString(item),
+            left: 0,
+            // top: item.position.y,
+            // left: item.position.x,
             width: item?.size?.width,
             height: item?.size?.height,
-            // transform: `rotate(${item?.rotation}deg)`,
+            transform: `${valsToTransformString(item)}`,
             backgroundColor: item?.background?.color,
             borderWidth: `${item?.border?.width}px`,
             borderColor: `${item?.border?.color}`,
             borderTopLeftRadius: `${
-              item?.border?.radius > 0
-                ? `${item?.border?.radius}px`
+              item?.border?.radius
+                ? `${item?.border?.radius}`
                 : `${item?.border?.topLeftRadius}px`
             }`,
             borderTopRightRadius: `${
-              item?.border?.radius > 0
-                ? `${item?.border?.radius}px`
+              item?.border?.radius
+                ? `${item?.border?.radius}`
                 : `${item?.border?.topRightRadius}px`
             }`,
             borderBottomRightRadius: `${
-              item?.border?.radius > 0
-                ? `${item?.border?.radius}px`
+              item?.border?.radius
+                ? `${item?.border?.radius}`
                 : `${item?.border?.bottomRightRadius}px`
             }`,
             borderBottomLeftRadius: `${
-              item?.border?.radius > 0
-                ? `${item?.border?.radius}px`
+              item?.border?.radius
+                ? `${item?.border?.radius}`
                 : `${item?.border?.bottomLeftRadius}px`
             }`,
             overflow: 'hidden',
